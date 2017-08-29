@@ -1,8 +1,10 @@
+/* eslint-disable */
 var path = require('path')
 var fs = require('fs')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var webpack=require('webpack')
 
 function resolve (dir) {
   return fs.realpathSync(__dirname + '/' + path.join('..', dir))
@@ -24,6 +26,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'bootstrap': resolve('src/assets/bootstrap'),
+
     },
     symlinks: false
   },
@@ -73,5 +77,13 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+   new webpack.optimize.CommonsChunkPlugin('common'),
+   new webpack.ProvidePlugin({
+     jQuery: 'jquery',
+     $: 'jquery',
+     Popper: ['popper.js', 'default'],
+   })
+  ]
 }
