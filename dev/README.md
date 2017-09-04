@@ -1,4 +1,4 @@
-# 1
+# Freedom
 
 > personal blog
 
